@@ -9,8 +9,6 @@ canvas.height = gameTileSizePx * 9;
 
 const canvasBottom = canvas.height;
 
-
-
 // Drawing the background of the game
 function fillBackground() {
     canvasContext.fillStyle = '#fff';
@@ -19,10 +17,29 @@ function fillBackground() {
 
 const player = new Player();
 
+const keys = {
+    w: {
+        pressed: false
+    },
+    a: {
+        pressed: false
+    },
+    d: {
+        pressed: false
+    }
+}
+
 // Creating an animation loop
 function animate() {
     requestAnimationFrame(animate);
     fillBackground();
+
+    player.velocity.x = 0;
+    if (keys.d.pressed) {
+        player.velocity.x = 5;
+    } else if (keys.a.pressed) {
+        player.velocity.x = -5;
+    }
 
     // Drawing the player
     player.draw();

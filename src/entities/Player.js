@@ -18,6 +18,7 @@ class Player {
     }
 
     update() {
+        this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
 
         if (this.playerBottom + this.velocity.y < canvasBottom) {
