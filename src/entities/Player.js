@@ -14,7 +14,6 @@ class Player {
     draw() {
         canvasContext.fillStyle = 'red';
         canvasContext.fillRect(this.position.x, this.position.y, this.width, this.height);
-
     }
 
     update() {
