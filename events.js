@@ -1,5 +1,6 @@
 const playerJump = () => {
-    if (player.playerBottom === canvasBottom) {
+    console.log(player.velocity.y)
+    if (player.velocity.y === 0) {
         player.velocity.y = -15;
     }
 }

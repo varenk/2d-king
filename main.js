@@ -20,7 +20,7 @@ const collisionBlocks = createCollisionBlocksFrom2DArray(
     CollisionBlock
 );
 
-const player = new Player();
+const player = new Player({ collisionBlocks });
 
 const keys = {
     w: {
@@ -42,6 +42,7 @@ function animate() {
     // Drawing collision blocks
     collisionBlocks.forEach(collision => collision.draw());
 
+    // Determining if player moves on x-axis
     player.velocity.x = 0;
     if (keys.d.pressed) {
         player.velocity.x = 5;
