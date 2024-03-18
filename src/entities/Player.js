@@ -1,6 +1,13 @@
 class Player extends Sprite {
-    constructor({ imageSrc, framesInSprite = 1, collisionBlocks = [], x = 200, y = 200 }) {
-        super({ imageSrc, framesInSprite });
+    constructor({
+        imageSrc,
+        framesInSprite = 1,
+        collisionBlocks = [],
+        animations,
+        x = 200,
+        y = 200
+    }) {
+        super({ imageSrc, framesInSprite, animations });
         this.position = { x, y };
         this.velocity = { x: 0, y: 0 };
         this.gravity = 1;
@@ -121,5 +128,17 @@ class Player extends Sprite {
             this.playerRight >= collisionLeft &&
             this.playerTop <= collisionBottom &&
             this.playerBottom >= collisionTop
+    }
+
+    switchSprite(spriteName) {
+        const animation = this.animations[spriteName];
+
+        if (this.image === animation.image) return;
+
+        this.resetAnimation();
+
+        this.image = animation.image;
+        this.framesInSprite = animation.framesInSprite;
+        this.frameBuffer = animation.frameBuffer;
     }
 }

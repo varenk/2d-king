@@ -6,18 +6,22 @@ const playerJump = () => {
 
 const playerMoveLeft = () => {
     keys.a.pressed = true;
+    player.switchSprite('runLeft');
 }
 
 const playerMoveRight = () => {
     keys.d.pressed = true;
+    player.switchSprite('runRight');
 }
 
 const playerStopMovingLeft = () => {
     keys.a.pressed = false;
+    player.switchSprite('idleLeft');
 }
 
 const playerStopMovingRight = () => {
     keys.d.pressed = false;
+    player.switchSprite('idleRight');
 }
 
 const keyDownActions = {

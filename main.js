@@ -24,7 +24,33 @@ const player = new Player(
     {
         imageSrc: './assets/king/idle.png',
         framesInSprite: 11,
-        collisionBlocks
+        collisionBlocks,
+        animations: {
+            idleRight: {
+                framesInSprite: 11,
+                frameBuffer: 6,
+                loop: true,
+                spriteSrc: './assets/king/idle.png'
+            },
+            idleLeft: {
+                framesInSprite: 11,
+                frameBuffer: 6,
+                loop: true,
+                spriteSrc: './assets/king/idleLeft.png'
+            },
+            runRight: {
+                framesInSprite: 8,
+                frameBuffer: 4,
+                loop: true,
+                spriteSrc: './assets/king/runRight.png'
+            },
+            runLeft: {
+                framesInSprite: 8,
+                frameBuffer: 4,
+                loop: true,
+                spriteSrc: './assets/king/runLeft.png'
+            }
+        }
     }
 );
 
