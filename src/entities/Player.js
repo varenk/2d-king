@@ -8,25 +8,33 @@ class Player extends Sprite {
     }
 
     get playerTop() {
-        return this.position.y;
+        return this.playerHitbox?.position.y;
     }
 
     get playerBottom() {
-        return this.position.y + this.height;
+        return this.playerHitbox?.position.y + this.playerHitbox?.height;
     }
 
     get playerLeft() {
-        return this.position.x;
+        return this.playerHitbox?.position.x;
     }
 
     get playerRight() {
-        return this.position.x + this.width;
+        return this.playerHitbox?.position.x + this.playerHitbox?.width;
+    }
+
+    // Creating a player hitbox relatively to main player box (sprite) position
+    get playerHitbox() {
+        const spriteOffsetX = 58;
+        const spriteOffsetY = 38;
+        return {
+            position: { x: this.position.x + spriteOffsetX, y: this.position.y + spriteOffsetY },
+            width: 50,
+            height: 50
+        }
     }
 
     update() {
-        canvasContext.fillStyle = 'rgba(255, 0, 0, 0.3)'
-        canvasContext.fillRect(this.position.x, this.position.y, this.width, this.height)
-
         // Move left / right
         this.position.x += this.velocity.x;
 
@@ -35,6 +43,9 @@ class Player extends Sprite {
 
         // Move up, apply gravity
         this.applyGravity();
+
+        // canvasContext.fillStyle = 'rgba(255, 0, 0, 0.3)'
+        // canvasContext.fillRect(this.playerHitbox.position.x, this.playerHitbox.position.y, this.playerHitbox.width, this.playerHitbox.height)
 
         // Check for vertical collisions
         this.checkVerticalCollision();
@@ -56,13 +67,15 @@ class Player extends Sprite {
             if (this.checkIsCollision(collision)) {
                 // collision on x axis going to the left
                 if (this.velocity.x < 0) {
-                    this.position.x = collisionRight + 0.01;
+                    const hitboxOffset = this.playerHitbox.position.x - this.position.x;
+                    this.position.x = collisionRight - hitboxOffset + 0.01;
                     break;
                 }
 
                 // collision on x axis going to the right
                 if (this.velocity.x > 0) {
-                    this.position.x = collisionLeft - this.width - 0.01;
+                    const hitboxOffset = this.playerHitbox.position.x - this.position.x + this.playerHitbox.width;
+                    this.position.x = collisionLeft - hitboxOffset - 0.01;
                     break;
                 }
             }
@@ -80,14 +93,18 @@ class Player extends Sprite {
                 // collision on y axis going up
                 if (this.velocity.y < 0) {
                     this.velocity.y = 0;
-                    this.position.y = collisionBottom + 0.01;
+
+                    const hitboxOffset = this.playerHitbox.position.y - this.position.y;
+                    this.position.y = collisionBottom - hitboxOffset + 0.01;
                     break;
                 }
 
                 // collision on y axis falling down
                 if (this.velocity.y > 0) {
                     this.velocity.y = 0;
-                    this.position.y = collisionTop - this.height - 0.01;
+
+                    const hitboxOffset = this.playerHitbox.position.y - this.position.y + this.playerHitbox.height;
+                    this.position.y = collisionTop - hitboxOffset - 0.01;
                     break;
                 }
             }
