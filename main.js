@@ -20,7 +20,13 @@ const collisionBlocks = createCollisionBlocksFrom2DArray(
     CollisionBlock
 );
 
-const player = new Player({ collisionBlocks });
+const player = new Player(
+    {
+        imageSrc: './assets/king/idle.png',
+        framesInSprite: 11,
+        collisionBlocks
+    }
+);
 
 const keys = {
     w: {
