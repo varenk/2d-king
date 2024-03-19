@@ -141,5 +141,7 @@ class Player extends Sprite {
         this.framesInSprite = animation.framesInSprite;
         this.frameBuffer = animation.frameBuffer;
         this.loop = animation.loop;
+
+        this.currentAnimation = animation;
     }
 }

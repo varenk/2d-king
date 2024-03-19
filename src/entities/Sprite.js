@@ -24,6 +24,7 @@ class Sprite {
         this.animations = animations;
         this.loop = loop;
         this.autoplay = autoplay;
+        this.currentAnimation = null;
 
         if (this.animations) {
             for (let key in this.animations) {
@@ -77,6 +78,13 @@ class Sprite {
             }
 
             this.elapsedFrames++;
+        }
+
+        if (this.currentAnimation?.onComplete) {
+            if (this.elapsedFrames === (this.framesInSprite - 1) && !this.currentAnimation.isCompleted) {
+                this.currentAnimation.onComplete();
+                this.currentAnimation.isCompleted = true;
+            }
         }
     }
 
