@@ -118,14 +118,14 @@ class Player extends Sprite {
         }
     }
 
-    checkIsCollision(collision) {
+    checkIsCollision(collision, playerInMiddle = false) {
         const collisionRight = collision.position.x + collision.width;
         const collisionLeft = collision.position.x;
         const collisionTop = collision.position.y;
         const collisionBottom = collision.position.y + collision.height;
 
-        return this.playerLeft <= collisionRight &&
-            this.playerRight >= collisionLeft &&
+        return (playerInMiddle ? this.playerLeft + this.playerHitbox.width : this.playerLeft) <= collisionRight &&
+            (playerInMiddle ? this.playerHitbox.position.x : this.playerRight) >= collisionLeft &&
             this.playerTop <= collisionBottom &&
             this.playerBottom >= collisionTop
     }
@@ -140,5 +140,6 @@ class Player extends Sprite {
         this.image = animation.image;
         this.framesInSprite = animation.framesInSprite;
         this.frameBuffer = animation.frameBuffer;
+        this.loop = animation.loop;
     }
 }

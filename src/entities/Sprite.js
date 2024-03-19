@@ -1,5 +1,13 @@
 class Sprite {
-    constructor({ position, imageSrc, framesInSprite = 1, animations }) {
+    constructor({
+                    position,
+                    imageSrc,
+                    framesInSprite = 1,
+                    animations,
+                    frameBuffer = 6,
+                    loop = true,
+                    autoplay = true
+    }) {
         this.position = position;
         this.image = new Image();
         this.image.onload = () => {
@@ -12,8 +20,10 @@ class Sprite {
         this.framesInSprite = framesInSprite;
         this.currentFrame = 0;
         this.elapsedFrames = 0;
-        this.frameBuffer = 6;
+        this.frameBuffer = frameBuffer;
         this.animations = animations;
+        this.loop = loop;
+        this.autoplay = autoplay;
 
         if (this.animations) {
             for (let key in this.animations) {
@@ -22,7 +32,6 @@ class Sprite {
 
                 this.animations[key].image = image;
             }
-            console.log(this.animations)
         }
     }
 
@@ -50,7 +59,12 @@ class Sprite {
         this.updateFrames();
     }
 
+    startAnimation() {
+        this.autoplay = true;
+    }
+
     updateFrames() {
+        if (!this.autoplay) return;
         // Will only move to the next frame in the sprite if elapsed frames are dividable
         // by frameBuffer value. Increase frameBuffer value to make animation slower
         if (this.framesInSprite > 1) {
@@ -58,7 +72,7 @@ class Sprite {
                 if (this.currentFrame < (this.framesInSprite - 1)) {
                     this.currentFrame++
                 } else {
-                    this.currentFrame = 0;
+                    if (this.loop) this.currentFrame = 0;
                 }
             }
 

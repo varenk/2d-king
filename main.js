@@ -49,10 +49,30 @@ const player = new Player(
                 frameBuffer: 4,
                 loop: true,
                 spriteSrc: './assets/king/runLeft.png'
+            },
+            enterDoor: {
+                framesInSprite: 8,
+                frameBuffer: 6,
+                loop: false,
+                spriteSrc: './assets/king/enterDoor.png',
+                onComplete: () => {
+
+                }
             }
         }
     }
 );
+
+const doors = [
+    new Sprite({
+        position: { x: 767, y: 270 },
+        imageSrc: './assets/doorOpen.png',
+        framesInSprite: 5,
+        frameBuffer: 6,
+        loop: false,
+        autoplay: false
+    })
+]
 
 const keys = {
     w: {
@@ -73,6 +93,8 @@ function animate() {
     backgroundLevel1.draw();
     // Drawing collision blocks
     collisionBlocks.forEach(collision => collision.draw());
+    // Drawing doors
+    doors.forEach(door => door.draw());
 
     // Determining if player moves on x-axis
     player.velocity.x = 0;
